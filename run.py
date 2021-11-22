@@ -16,12 +16,13 @@ def process_file_to_json(file):
 		dict = {"title": lines[0], "name": lines[1], "date": lines[2], "feedback": lines[3:]}
 		return json.dumps(dict)
 
-def post_json(json):
-	return 200
+def post_json(p_json):
+	response = requests.post(post_url, json = p_json)
+	return response.text
 
 if __name__ == "__main__":
 	files = get_source_files()
 	for file in files:
-		json = process_file_to_json(file)
-		http_response = post_json(json)
+		p_json = process_file_to_json(file)
+		http_response = post_json(p_json)
 		print ("{}, {}".format(file, http_response))
